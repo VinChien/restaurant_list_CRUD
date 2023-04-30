@@ -7,8 +7,9 @@ const restaurant = require('../../models/restaurant');
 
 // index
 router.get('/', (req, res) => {
+  const userId = req.user._id;
   restaurant
-    .find()
+    .find({ userId })
     .lean()
     .sort({ _id: 'asc' })
     .then((restaurants) => res.render('index', { restaurants: restaurants }))
@@ -17,9 +18,10 @@ router.get('/', (req, res) => {
 
 // delete
 router.delete('/:id', (req, res) => {
-  const id = req.params.id;
+  const userId = req.user._id;
+  const _id = req.params.id;
   restaurant
-    .findByIdAndDelete(id)
+    .findOneAndDelete({ _id, userId })
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error));
 });

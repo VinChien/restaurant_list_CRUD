@@ -12,6 +12,13 @@ const restaurantSchema = new Schema({
   google_map: { type: String, require: true },
   rating: { type: Number, require: true },
   description: { type: String, require: true },
+  userId: {
+    // 加入關聯設定
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('restaurant', restaurantSchema);
