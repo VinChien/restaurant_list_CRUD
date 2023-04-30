@@ -11,6 +11,8 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 // require methodOverride
 const methodOverride = require('method-override');
+// require connect-flash
+const flash = require('connect-flash');
 // require router
 const routes = require('./routes');
 
@@ -40,11 +42,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app);
+// 掛載 connect-flash
+app.use(flash());
 // 使用 app.use 代表這組 middleware 會作用於所有的路由
 app.use((req, res, next) => {
   // 你可以在這裡 console.log(req.user) 等資訊來觀察
   res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.user = req.user;
+  // 設定 success_msg 訊息
+  res.locals.success_msg = req.flash('success_msg');
+  // 設定 warning_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg');
   next();
 });
 // import request into router
