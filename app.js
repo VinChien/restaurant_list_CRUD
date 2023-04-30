@@ -4,7 +4,7 @@ const express = require('express');
 const session = require('express-session');
 
 const app = express();
-const port = 3000;
+
 // require express-handlebars
 const exphbs = require('express-handlebars');
 // require body-parser
@@ -13,6 +13,13 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 // require connect-flash
 const flash = require('connect-flash');
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+const port = process.env.PORT;
+
 // require router
 const routes = require('./routes');
 
@@ -28,7 +35,7 @@ app.set('view engine', 'handlebars');
 
 app.use(
   session({
-    secret: 'ThisIsMySecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
   })
