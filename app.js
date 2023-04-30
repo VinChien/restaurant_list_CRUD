@@ -1,5 +1,8 @@
 // require packages used in the project
 const express = require('express');
+
+const session = require('express-session');
+
 const app = express();
 const port = 3000;
 // require express-handlebars
@@ -17,6 +20,15 @@ require('./config/mongoose');
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+app.use(
+  session({
+    secret: 'ThisIsMySecret',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 // setting static files
 app.use(express.static('public'));
 // 每筆請求都要透過 body-parser 作前置處理
