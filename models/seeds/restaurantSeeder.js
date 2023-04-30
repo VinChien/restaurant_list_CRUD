@@ -1,12 +1,11 @@
-const bcrypt = require('bcryptjs');
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-// require restaurant model
-const restaurant = require('../restaurant');
-const restaurantList = require('../../restaurant.json').results;
+// 載入model
+const Restaurant = require('../restaurant');
 const User = require('../user');
-// require mongoose config
+// 載入json
+const restaurantList = require('../../restaurant.json').results;
+
+const bcrypt = require('bcryptjs');
+
 const db = require('../../config/mongoose');
 
 // user的種子資料
