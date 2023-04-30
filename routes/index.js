@@ -10,7 +10,6 @@ const users = require('./modules/users');
 // 掛載 middleware
 const { authenticator } = require('../middleware/auth');
 
-
 router.use('/restaurants', authenticator, restaurants);
 router.use('/search', authenticator, search);
 router.use('/users', users);
