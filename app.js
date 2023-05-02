@@ -60,6 +60,8 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   // 設定 warning_msg 訊息
   res.locals.warning_msg = req.flash('warning_msg');
+  // 設定 warning_msg 訊息
+  res.locals.warning_msg = req.flash('errors');
   next();
 });
 // import request into router
